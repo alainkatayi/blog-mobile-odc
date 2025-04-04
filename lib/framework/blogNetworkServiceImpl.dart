@@ -33,7 +33,7 @@ class BlogNetworkServiceImpl implements BlogNetworkService{
   }
   @override
   Future<List<Article>> recupererArticle() async {
-    var url = Uri.parse("http://10.252.252.61:8000/api/tout");
+    var url = Uri.parse("http://10.252.252.19:8000/api/tout");
     var response = await http.get(url);
     print("Réponse brute de l'API : ${response.body}");
 
