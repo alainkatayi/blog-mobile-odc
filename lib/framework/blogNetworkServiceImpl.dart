@@ -33,7 +33,7 @@ class BlogNetworkServiceImpl implements BlogNetworkService{
   }
   @override
   Future<List<Article>> recupererArticle() async {
-    var url = Uri.parse("http://10.252.252.19:8000/api/tout");
+    var url = Uri.parse("http://10.252.252.41:8000/api/articles");
     var response = await http.get(url);
     print("Réponse brute de l'API : ${response.body}");
 
@@ -58,6 +58,17 @@ class BlogNetworkServiceImpl implements BlogNetworkService{
 
     // TODO: implement liker
     throw UnimplementedError();
+  }
+
+  static const String baseUrl = "http://10.252.252.19:8000/api";
+  @override
+  Future<List<Article>> recupere() async {
+    final response = await http.get(Uri.parse('$baseUrl/articles'));
+    if (response.statusCode ==200){
+      return jsonDecode(response.body);
+    }else{
+      throw Exception("echec");
+    }
   }
 
 
