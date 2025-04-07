@@ -10,6 +10,7 @@ class CarteArticles extends StatelessWidget {
   //final int? nbrComment;
   //Article? article;
   final Article article;
+  //List<dynamic> art = [];
 
   CarteArticles(this.article);
 
@@ -57,7 +58,7 @@ class CarteArticles extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Auteur:  ${article.auteur ?? ""}",
+                        "Auteur: ${article.auteur?.name ?? ""}",
                         style: TextStyle(
                           color: Colors.red,
                           fontSize: 16,
@@ -92,7 +93,7 @@ class CarteArticles extends StatelessWidget {
 
             // Date de création
             Text(
-              "Date: ${article.datecreation ?? 2025-03-31 }",
+              "Date: ${article.date_creation ?? "2025-03-31" }",
               style: TextStyle(
                 color: Colors.white70,
                 fontSize: 12,
@@ -159,7 +160,7 @@ class CarteArticles extends StatelessWidget {
 
                         Text(
 
-                          "${article.nbr_Comment ?? 0}",
+                          "${article.nbr_comment ?? 0}",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
