@@ -7,7 +7,7 @@ class Commentctrl extends StateNotifier<CommentState> {
   var blogNetwork = getIt.get<BlogNetworkService>();
   Commentctrl()
     : super(CommentState()) {
-    //chargerCommentaires();
+      
   }
 
   Future<void> chargerCommentaires(int articleId, String token) async {

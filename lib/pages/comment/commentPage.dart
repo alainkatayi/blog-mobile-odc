@@ -61,7 +61,7 @@ class _CommentPageState extends ConsumerState<CommentPage> {
                 var commentaire = state.commentaires?[i];
                 print("hello");
                 if (commentaire == null) return Container();
-                return CommentCard();
+                return CommentCard(commentaire: commentaire,);
               },
             ),
           ),
