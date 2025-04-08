@@ -12,7 +12,7 @@ import '../business/models/article.dart';
 class BlogNetworkServiceImpl implements BlogNetworkService {
   @override
   Future<User?> authentifier(Authentification data) async {
-    var url = Uri.parse("http://10.252.252.45:8000/api/login");
+    var url = Uri.parse("http://10.252.252.32:8000/api/login");
     var body = jsonEncode(data.toJson());
     var response = await http.post(
       url,
@@ -34,7 +34,7 @@ class BlogNetworkServiceImpl implements BlogNetworkService {
 
   @override
   Future<List<Article>> recupererArticle() async {
-    var url = Uri.parse("http://10.252.252.45:8000/api/articles");
+    var url = Uri.parse("http://10.252.252.32:8000/api/articles");
     var response = await http.get(url);
     // print("Réponse brute de l'API : ${response.body}");
 
@@ -50,7 +50,7 @@ class BlogNetworkServiceImpl implements BlogNetworkService {
 
   @override
   Future<void> liker(int articleid) async {
-    var url = Uri.parse("http://10.252.252.45:8000/api/getAllArticles");
+    var url = Uri.parse("http://10.252.252.32:8000/api/getAllArticles");
     var response = await http.get(url);
     print("Réponse brute de l'API : ${response.body}");
 
@@ -58,7 +58,7 @@ class BlogNetworkServiceImpl implements BlogNetworkService {
     throw UnimplementedError();
   }
 
-  static const String baseUrl = "http://10.252.252.45:8000/api";
+  static const String baseUrl = "http://10.252.252.32:8000/api";
 
   /*
   COMMENTAIRES
@@ -86,7 +86,7 @@ class BlogNetworkServiceImpl implements BlogNetworkService {
     int articleId,
     String token,
   ) async {
-    var url = Uri.parse("http://10.252.252.45:8000/api/comments/$articleId");
+    var url = Uri.parse("http://10.252.252.32:8000/api/comments/$articleId");
     var response = await http.get(
       url,
       headers: {"Authorization": "Bearer $token"},

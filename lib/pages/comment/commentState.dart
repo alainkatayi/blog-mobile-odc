@@ -3,7 +3,7 @@ import 'package:app/business/models/comment.dart';
 class CommentState {
   List<Comment>? commentaires;
   String? texteNouveauCommentaire;
-  int? articleId;
+  int?  articleId;
   bool? isLoading;
   bool? isSending;
 
