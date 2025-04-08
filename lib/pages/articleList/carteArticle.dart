@@ -1,6 +1,6 @@
 import 'package:app/business/models/article.dart';
+import 'package:app/pages/comment/commentPage.dart';
 import 'package:flutter/material.dart';
-
 
 class CarteArticles extends StatelessWidget {
   //final String? title;
@@ -19,8 +19,8 @@ class CarteArticles extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(20),
       decoration: BoxDecoration(
-          color: Colors.white,
-        borderRadius:  BorderRadius.circular(15),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.5), // Couleur de l'ombre
@@ -41,16 +41,12 @@ class CarteArticles extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-
                 Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Text(
-                        "Titre : ${article.title != null && article.title!.length > 70
-                            ? article.title!.substring(0, 70) + "..." :  article.title ?? ""
-                            }",
+                        "Titre : ${article.title != null && article.title!.length > 70 ? article.title!.substring(0, 70) + "..." : article.title ?? ""}",
                         style: TextStyle(
                           color: Colors.red,
                           fontSize: 16,
@@ -59,20 +55,16 @@ class CarteArticles extends StatelessWidget {
                       ),
                       Text(
                         "Auteur: ${article.auteur?.name ?? ""}",
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 16,
-                        ),
+                        style: TextStyle(color: Colors.red, fontSize: 16),
                       ),
                       SizedBox(height: 5),
-
                     ],
                   ),
                 ),
                 SizedBox(height: 15),
 
                 Container(
-                  width: 400,  // Largeur du rectangle
+                  width: 400, // Largeur du rectangle
                   height: 150, // Hauteur du rectangle
                   decoration: BoxDecoration(
                     color: Colors.red,
@@ -84,8 +76,6 @@ class CarteArticles extends StatelessWidget {
                     ),
                   ),
                 ),
-
-
               ],
             ),
 
@@ -93,11 +83,8 @@ class CarteArticles extends StatelessWidget {
 
             // Date de création
             Text(
-              "Date: ${article.date_creation ?? "2025-03-31" }",
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 12,
-              ),
+              "Date: ${article.date_creation ?? "2025-03-31"}",
+              style: TextStyle(color: Colors.white70, fontSize: 12),
             ),
 
             SizedBox(height: 15),
@@ -106,91 +93,70 @@ class CarteArticles extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
-
-
                 ElevatedButton(
-                    onPressed: () {
-                      // Action pour commenter
-                    },
-                    style: ElevatedButton.styleFrom(
-                      iconColor: Colors.red[700],
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                  onPressed: () {
+                    // Action pour commenter
+                  },
+                  style: ElevatedButton.styleFrom(
+                    iconColor: Colors.red[700],
+                    backgroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    child:
-                    Row(
-                      children: [
-                        Icon(Icons.thumb_up, color: Colors.white,),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.thumb_up, color: Colors.white),
 
-
-
-                        Text(
-
-                          "${article.nb_Likes ?? 0}",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    )
-
-
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      // Action pour commenter
-                    },
-                    style: ElevatedButton.styleFrom(
-                      iconColor: Colors.red[700],
-                      backgroundColor: Colors.red,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                      Text(
+                        "${article.nb_Likes ?? 0}",
+                        style: TextStyle(color: Colors.white, fontSize: 12),
                       ),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => CommentPage(articleId: article.id!),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    iconColor: Colors.red[700],
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    child:
-                    Row(
-                      children: [
-                        Icon(Icons.comment, color: Colors.white,),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.comment, color: Colors.white),
 
-
-
-                        Text(
-
-                          "${article.nbr_comment ?? 0}",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    )
-
-
+                      Text(
+                        "${article.nbr_comment ?? 0}",
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ],
+                  ),
                 ),
 
                 ElevatedButton(
-                    onPressed: (){},
-                  style:ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green
-                  ) ,
-                    child: Icon(Icons.share, color: Colors.white,),
-                    //child: Icon(Icons.heart_broken, color: Colors.red,)
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  child: Icon(Icons.share, color: Colors.white),
+                  //child: Icon(Icons.heart_broken, color: Colors.red,)
                 ),
-
-
-
-
               ],
             ),
 
             SizedBox(height: 10),
 
             // Bouton "Voir plus"
-
           ],
         ),
       ),
