@@ -52,21 +52,28 @@ class BlogNetworkServiceImpl implements BlogNetworkService {
     var url = Uri.parse("http://10.252.252.32:8000/api/getAllArticles");
     var response = await http.get(url);
     print("Réponse brute de l'API : ${response.body}");
-
-    // TODO: implement liker
-    throw UnimplementedError();
   }
 
   static const String baseUrl = "http://10.252.252.32:8000/api";
 
-  /*
-  COMMENTAIRES
-  */
 
   @override
-  Future<bool> ajouterCommentaire(data, String token) {
-    // TODO: implement ajouterCommentaire
-    throw UnimplementedError();
+  Future<bool> ajouterCommentaire(data, String token) async {
+    var url = Uri.parse("http://10.252.252.32:8000/api/comments");
+    var body = jsonEncode(data.toJson());
+    var response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: body,
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -102,35 +109,3 @@ class BlogNetworkServiceImpl implements BlogNetworkService {
     }
   }
 }
-
-
-void main(){
-  print("bonjour le monde");
-}
-/*void main() async{
-  var formulaire = Authentification(
-      email: "test@gmail.com",
-      password: "123456"
-  );
-
-  var service = BlogNetworkServiceImpl();
-  var user = await service.authentifier(formulaire);
-  print(user.name);
-}*/
-// void main() async {
-//   var service = BlogNetworkServiceImpl();
-
-//   // authentification
-//   var formulaire = Authentification(
-//     email: "ggig19@gmail.com",
-//     password: "password",
-//   );
-//   User? user = await service.authentifier(formulaire);
-//   // var user = await service.liker(1);
-//   // print(user);
-//   print("token ${user?.token}");
-//   var res = await service.recupererCommentaires(1, user?.token ?? "");
-//   res.forEach((e) {
-//     print(e.id);
-//   });
-// }

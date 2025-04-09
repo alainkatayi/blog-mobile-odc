@@ -1,3 +1,4 @@
+import 'package:app/business/models/ajouterCommentaire.dart';
 import 'package:app/pages/articleList/listArticle.dart';
 import 'package:app/pages/comment/commentCard.dart';
 import 'package:app/pages/comment/commentCtrl.dart';
@@ -31,6 +32,7 @@ class _CommentPageState extends ConsumerState<CommentPage> {
     var state = ref.watch(commentProvider);
     var stateLogin = ref.watch(loginControlPorvider);
     var loginState = ref.watch(loginControlPorvider);
+    var commentaire = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -44,7 +46,7 @@ class _CommentPageState extends ConsumerState<CommentPage> {
           color: Colors.white,
           iconSize: 20,
           onPressed: () {
-            Navigator.push(
+            Navigator.pop(
               context,
               MaterialPageRoute(builder: (_) => ListarticlePage()),
             );
@@ -59,7 +61,7 @@ class _CommentPageState extends ConsumerState<CommentPage> {
               itemCount: state.commentaires?.length ?? 0,
               itemBuilder: (context, i) {
                 var commentaire = state.commentaires?[i];
-                print("hello");
+                // print("hello");
                 if (commentaire == null) return Container();
                 return CommentCard(commentaire: commentaire);
               },
@@ -73,6 +75,7 @@ class _CommentPageState extends ConsumerState<CommentPage> {
                 Expanded(
                   child: TextField(
                     // controller: _controller,
+                    controller: commentaire,
                     decoration: InputDecoration(
                       hintText: "Ajouter un commentaire",
                       border: OutlineInputBorder(
@@ -84,7 +87,22 @@ class _CommentPageState extends ConsumerState<CommentPage> {
                 SizedBox(width: 10),
                 IconButton(
                   onPressed: () {
-                    print("ok");
+                    var ctrl = ref.read(commentProvider.notifier);
+                    var comment_value = AjouterCommentaire(
+                      content: commentaire.text,
+                      articleId: widget.articleId,
+                    );
+                    ctrl.ajouterCommentaire(
+                      comment_value,
+                      stateLogin.user?.token ?? "",
+                    );
+
+                    // Recharger les commentaires pour afficher le nouveau
+                    ctrl.chargerCommentaires(
+                                widget.articleId,
+                                stateLogin.user?.token ?? "",
+                    );
+                    commentaire.clear();
                   },
                   icon: Icon(Icons.send),
                 ),

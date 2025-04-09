@@ -13,88 +13,92 @@ class Login extends ConsumerStatefulWidget {
 }
 
 class _LoginState extends ConsumerState<Login> {
-  var emaiCtrl = TextEditingController(text: "ggig19@gmail.com");
-  var passwordCtrl = TextEditingController(text: "password");
+  var emaiCtrl = TextEditingController();
+  var passwordCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var state = ref.watch(loginControlPorvider);
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.blue),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 100),
-
-            CircleAvatar(
-              radius: 50, // Taille de l'avatar
-              backgroundColor: Colors.blue, // Couleur de fond
-              child: Icon(Icons.person, size: 30, color: Colors.white),
-            ),
-
-            SizedBox(height: 50),
-
-            SizedBox(
-              height: 80,
-              width: 400,
-              child: TextField(
-                controller: emaiCtrl,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 100),
+          
+              CircleAvatar(
+                radius: 80, // Taille de l'avatar
+                backgroundColor: const Color.fromARGB(181, 255, 30, 0), // Couleur de fond
+                child: Icon(Icons.person, size: 80, color: Colors.white,),
+              ),
+          
+              SizedBox(height: 50),
+          
+              SizedBox(
+                height: 80,
+                width: 400,
+                child: TextField(
+                  controller: emaiCtrl,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    labelText: "Email",
+                    hintText: "Email",
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  hintText: "Email",
-                  hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
-            SizedBox(height: 50),
-
-            SizedBox(
-              height: 80,
-              width: 400,
-              child: TextField(
-                controller: passwordCtrl,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+              SizedBox(height: 50),
+          
+              SizedBox(
+                height: 80,
+                width: 400,
+                child: TextField(
+                  controller: passwordCtrl,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    labelText: "Mot de passe",
+                    hintText: "Mot de passe",
+                    hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  hintText: "Mot de passe",
-                  hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                var ctrl = ref.read(loginControlPorvider.notifier);
-                var data = Authentification(
-                  email: emaiCtrl.text,
-                  password: passwordCtrl.text,
-                );
-                var res = await ctrl.submitForm(data);
-                if (res) {
-                  // navigation vers article list
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => ListarticlePage()),
+              ElevatedButton(
+                onPressed: () async {
+                  var ctrl = ref.read(loginControlPorvider.notifier);
+                  var data = Authentification(
+                    email: emaiCtrl.text,
+                    password: passwordCtrl.text,
                   );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, // Couleur du bouton
-                foregroundColor: Colors.white, // Couleur du texte
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Bords arrondis
+                  var res = await ctrl.submitForm(data);
+                  if (res) {
+                    // navigation vers article list
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ListarticlePage()),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(181, 255, 30, 0), // Couleur du bouton
+                  foregroundColor: Colors.white, // Couleur du texte
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // Bords arrondis
+                  ),
+                ),
+                child: Text(
+                  state.isLoading == true ? "Chargement..." : "Se connecter",
                 ),
               ),
-              child: Text(
-                state.isLoading == true ? "Chargement..." : "Se connecter",
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
