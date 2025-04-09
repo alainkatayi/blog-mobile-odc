@@ -27,7 +27,6 @@ class _ListArticleState extends ConsumerState<ListarticlePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Liste des articles', style: TextStyle(color: Colors.white),),
-        //leading: Icon(Icons.search, color: Colors.white,),
         backgroundColor: Colors.red,
        centerTitle: true,
         actions: [
