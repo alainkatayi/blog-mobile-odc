@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:app/business/models/Authentification.dart';
+import 'package:app/business/models/CreationCompte.dart';
 import 'package:app/business/models/user.dart';
 import 'package:app/business/services/blogNetworkService.dart';
 import 'package:http/http.dart';
@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 
 import '../business/models/article.dart';
 class BlogNetworkServiceImpl implements BlogNetworkService{
+  String? base_url="";
+  BlogNetworkServiceImpl({this.base_url});
   @override
   Future<User> authentifier(Authentification data) async {
 
@@ -31,9 +33,12 @@ class BlogNetworkServiceImpl implements BlogNetworkService{
     var user = User.fromMap(resultat);
     return user;
   }
+
+
+
   @override
   Future<List<Article>> recupererArticle() async {
-    var url = Uri.parse("http://10.252.252.41:8000/api/articles");
+    var url = Uri.parse("http://10.252.252.61:8000/api/tout");
     var response = await http.get(url);
     print("Réponse brute de l'API : ${response.body}");
 
@@ -60,22 +65,33 @@ class BlogNetworkServiceImpl implements BlogNetworkService{
     throw UnimplementedError();
   }
 
-  static const String baseUrl = "http://10.252.252.19:8000/api";
   @override
-  Future<List<Article>> recupere() async {
-    final response = await http.get(Uri.parse('$baseUrl/articles'));
-    if (response.statusCode ==200){
-      return jsonDecode(response.body);
-    }else{
-      throw Exception("echec");
+  Future<User> creerCompte(CreationCompte donnee)async{
+    var url= Uri.parse("$base_url/api/register");
+    var body=jsonEncode(donnee.toMap());
+    var response= await http.post(
+        url,
+        body: body,
+        headers: {"content-type":"application/json"}
+    );
+
+    var codes=[200,201];
+    var resultat= jsonDecode(response.body) as Map; // Map
+
+    if(!codes.contains(response.statusCode)){
+      var error= resultat["error"];
+
+
+      if (resultat.containsKey("email") && resultat["email"].isNotEmpty) {
+        error=resultat["email"][0];
+      }
+
+      throw Exception(error);
     }
+    var user=User.fromMap(resultat['data']);
+    return user;
+
   }
-
-
-
-
-
-
 }
 
 /*void main() async{
