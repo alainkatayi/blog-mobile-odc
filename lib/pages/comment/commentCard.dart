@@ -3,6 +3,10 @@ import 'package:app/business/models/comment.dart';
 
 class CommentCard extends StatelessWidget {
   final Comment commentaire;
+  int? userIdConnecte;
+
+
+
 
   CommentCard({required this.commentaire});
 
@@ -42,12 +46,6 @@ class CommentCard extends StatelessWidget {
                     Text(commentaire.content ?? "Aucun texte"),
                   ],
                 ),
-              ),
-              IconButton(
-                onPressed: () {
-                  
-                },
-                icon: const Icon(Icons.delete),
               ),
             ],
           ),

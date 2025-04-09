@@ -61,7 +61,7 @@ class _CommentPageState extends ConsumerState<CommentPage> {
                 var commentaire = state.commentaires?[i];
                 print("hello");
                 if (commentaire == null) return Container();
-                return CommentCard(commentaire: commentaire,);
+                return CommentCard(commentaire: commentaire);
               },
             ),
           ),
@@ -82,7 +82,12 @@ class _CommentPageState extends ConsumerState<CommentPage> {
                   ),
                 ),
                 SizedBox(width: 10),
-                IconButton(onPressed: () {}, icon: Icon(Icons.send)),
+                IconButton(
+                  onPressed: () {
+                    print("ok");
+                  },
+                  icon: Icon(Icons.send),
+                ),
               ],
             ),
           ),

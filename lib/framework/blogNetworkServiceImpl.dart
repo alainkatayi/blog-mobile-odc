@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:app/business/models/Authentification.dart';
 import 'package:app/business/models/comment.dart';
 import 'package:app/business/models/user.dart';
@@ -72,7 +71,7 @@ class BlogNetworkServiceImpl implements BlogNetworkService {
 
   @override
   Future<bool> supprimerCommentaire(int commentId, String token) async {
-    var url = Uri.parse("http://10.252.252.45:8000/api/comments/${commentId}");
+    var url = Uri.parse("http://10.252.252.32:8000/api/comments/${commentId}");
     var response = await http.delete(url);
     if (response.statusCode == 200) {
       return true;
@@ -104,6 +103,10 @@ class BlogNetworkServiceImpl implements BlogNetworkService {
   }
 }
 
+
+void main(){
+  print("bonjour le monde");
+}
 /*void main() async{
   var formulaire = Authentification(
       email: "test@gmail.com",
